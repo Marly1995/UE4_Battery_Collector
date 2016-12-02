@@ -34,6 +34,9 @@ public:
 
 	FVector position;
 
+	FString logFile;
+
+
 protected:
 
 	/** Resets HMD orientation in VR. */

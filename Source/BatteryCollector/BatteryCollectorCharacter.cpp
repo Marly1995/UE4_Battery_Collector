@@ -56,6 +56,10 @@ ABatteryCollectorCharacter::ABatteryCollectorCharacter()
 	// set the dependants of the speed on the power level
 	SpeedFactor = 0.75f;
 	BaseSpeed = 10.0f;
+
+	FDateTime dateTime;
+	FString timeStamp = (FString::SanitizeFloat(FPlatformTime::Seconds()));
+	logFile = FString("C:/Users/Computing/Documents/" + timeStamp + "LogFile.txt");
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -217,7 +221,6 @@ void ABatteryCollectorCharacter::LogPower()
 {
 	FString powerLog = ("\r\n power:" + FString::SanitizeFloat(CharacterPower));
 	FString positionLog = ("\r\n" + position.ToCompactString());
-	FString logFile = FString("C:/Users/Computing/Documents/LogFile.txt");
 
 	FFileHelper::SaveStringToFile(positionLog, *logFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 
