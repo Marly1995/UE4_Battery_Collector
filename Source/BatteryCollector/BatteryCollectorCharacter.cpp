@@ -59,7 +59,7 @@ ABatteryCollectorCharacter::ABatteryCollectorCharacter()
 
 	FDateTime dateTime;
 	FString timeStamp = (FString::SanitizeFloat(FPlatformTime::Seconds()));
-	logFile = FString("C:/Users/Computing/Documents/" + timeStamp + "LogFile.txt");
+	logFile = FString("C:/Users/Computing/Documents/" + timeStamp + "PowerLogFile.txt");
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -219,10 +219,10 @@ void ABatteryCollectorCharacter::UpdatePower(float PowerChange)
 
 void ABatteryCollectorCharacter::LogPower()
 {
-	FString powerLog = ("\r\n power:" + FString::SanitizeFloat(CharacterPower));
+	FString powerLog = (FString::SanitizeFloat(CharacterPower) + "\r\n");
 	FString positionLog = ("\r\n" + position.ToCompactString());
 
-	FFileHelper::SaveStringToFile(positionLog, *logFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
+	FFileHelper::SaveStringToFile(powerLog, *logFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 
 }
 
