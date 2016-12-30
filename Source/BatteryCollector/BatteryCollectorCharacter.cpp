@@ -59,7 +59,11 @@ ABatteryCollectorCharacter::ABatteryCollectorCharacter()
 
 	FDateTime dateTime;
 	FString timeStamp = (FString::SanitizeFloat(FPlatformTime::Seconds()));
-	logFile = FString("C:/Users/Computing/Documents/" + timeStamp + "PowerLogFile.txt");
+	powerLogFile = FString("C:/Users/Marlon/Documents/" + timeStamp + "PowerLogFile.txt");
+	posLogFile = FString("C:/Users/Marlon/Documents/" + timeStamp + "PositionLogFile.txt");
+
+	FFileHelper::SaveStringToFile("power \r\n", *powerLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
+	FFileHelper::SaveStringToFile("position \r\n", *posLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -220,9 +224,10 @@ void ABatteryCollectorCharacter::UpdatePower(float PowerChange)
 void ABatteryCollectorCharacter::LogPower()
 {
 	FString powerLog = (FString::SanitizeFloat(CharacterPower) + "\r\n");
-	FString positionLog = ("\r\n" + position.ToCompactString());
+	FString positionLog = (position.ToCompactString() + "\r\n");
 
-	FFileHelper::SaveStringToFile(powerLog, *logFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
+	FFileHelper::SaveStringToFile(powerLog, *powerLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
+	FFileHelper::SaveStringToFile(positionLog, *posLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 
 }
 

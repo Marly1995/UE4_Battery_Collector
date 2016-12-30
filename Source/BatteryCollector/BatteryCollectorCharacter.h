@@ -34,7 +34,8 @@ public:
 
 	FVector position;
 
-	FString logFile;
+	FString posLogFile;
+	FString powerLogFile;
 
 
 protected:
