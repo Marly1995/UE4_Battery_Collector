@@ -38,6 +38,8 @@ public:
 	// sets a new playing state
 	void SetCurrentState(EBatteryPlayState NewState);
 
+	int xx;
+
 protected:
 	// rate at which character loses power
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
