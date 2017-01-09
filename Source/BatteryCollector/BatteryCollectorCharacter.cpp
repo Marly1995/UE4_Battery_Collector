@@ -59,8 +59,8 @@ ABatteryCollectorCharacter::ABatteryCollectorCharacter()
 
 	FDateTime dateTime;
 	FString timeStamp = (FString::SanitizeFloat(FPlatformTime::Seconds()));
-	powerLogFile = FString("C:/Users/Marlon/Documents/" + timeStamp + "PowerLogFile.txt");
-	posLogFile = FString("C:/Users/Marlon/Documents/" + timeStamp + "PositionLogFile.txt");
+	powerLogFile = FString("C:/Users/Computing/Documents/" + timeStamp + "PowerLogFile.txt");
+	posLogFile = FString("C:/Users/Computing/Documents/" + timeStamp + "PositionLogFile.txt");
 
 	FFileHelper::SaveStringToFile("power \r\n", *powerLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 	FFileHelper::SaveStringToFile("position \r\n", *posLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
