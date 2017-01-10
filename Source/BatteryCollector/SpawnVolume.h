@@ -31,6 +31,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Spawning")
 	void SetSpawningActive(bool bShouldSpawn);
 
+	FString batteryLogFile;
 protected:
 	// the pickup to spawn
 	UPROPERTY(EditAnywhere, Category = "Spawning")

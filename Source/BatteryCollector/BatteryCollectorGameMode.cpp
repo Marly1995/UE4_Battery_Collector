@@ -18,6 +18,7 @@ ABatteryCollectorGameMode::ABatteryCollectorGameMode()
 
 	// base decay rate
 	DecayRate = 0.05f;
+
 	xx = 0;
 }
 
@@ -117,12 +118,13 @@ void ABatteryCollectorGameMode::HandleNewState(EBatteryPlayState NewState)
 		// in we have won
 		case EBatteryPlayState::EWon:
 		{
-			if (xx <= 1) 
+			if (xx < 1) 
 			{
 				FString file = "C:/Users/Computing/Documents/WinLogFile.txt";
 				FVector position = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-				FString positionLog = (position.ToCompactString() + "\r\n");
+				FString positionLog = ("W" + position.ToCompactString() + "\r\n");
 				FFileHelper::SaveStringToFile(positionLog, *file, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
+				xx++;
 			}
 			// spawn volumes inactive
 			for (ASpawnVolume* Volume : SpawnVolumeActors)
@@ -134,12 +136,13 @@ void ABatteryCollectorGameMode::HandleNewState(EBatteryPlayState NewState)
 		// if the game has ended
 		case EBatteryPlayState::EGameOver:
 		{
-			if (xx <= 1)
+			if (xx < 1)
 			{
 				FString file = "C:/Users/Computing/Documents/LoseLogFile.txt";
 				FVector position = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-				FString positionLog = (position.ToCompactString() + "\r\n");
+				FString positionLog = ("L" + position.ToCompactString() + "\r\n");
 				FFileHelper::SaveStringToFile(positionLog, *file, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
+				xx++;
 			}
 			// spawn volumes inactive
 			for (ASpawnVolume* Volume : SpawnVolumeActors)

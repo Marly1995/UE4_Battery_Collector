@@ -4,6 +4,7 @@
 #include "SpawnVolume.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pickup.h"
+#include "BatteryCollectorGameMode.h"
 
 
 // Sets default values
@@ -19,6 +20,12 @@ ASpawnVolume::ASpawnVolume()
 	// set the spawn delay range
 	SpawnDelayRangeLow = 1.0f;
 	SpawnDelayRangeHigh = 4.5f;
+
+	FDateTime dateTime;
+	FString timeStamp = (FString::SanitizeFloat(FPlatformTime::Seconds()));
+	batteryLogFile = FString("C:/Users/Computing/Documents/" + timeStamp + "BatteriesLogFile.txt");
+
+	FFileHelper::SaveStringToFile("batteries \r\n", *batteryLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 }
 
 // Called when the game starts or when spawned
@@ -84,6 +91,11 @@ void ASpawnVolume::SpawnPickup()
 
 			SpawnDelay = FMath::FRandRange(SpawnDelayRangeLow, SpawnDelayRangeHigh);
 			GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawnVolume::SpawnPickup, SpawnDelay, false);
+
+			// log the position
+			FString positionLog = (SpawnLocation.ToCompactString() + "\r\n");
+
+			FFileHelper::SaveStringToFile(positionLog, *batteryLogFile, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 
 		}
 	}
